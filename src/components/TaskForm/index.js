@@ -27,7 +27,9 @@ export default function CreateTask({reloadTasks, showMessage}){
 
     const onSubmit = event => {
         event.preventDefault();
-        closeModal();
+        if(!localStorage.getItem('token')){
+            modalActions.openLoginModal(true)(dispatch);
+        }else{
         if (modal==='create') {
             const form = new FormData();
             form.append("username", data.username);
@@ -46,7 +48,8 @@ export default function CreateTask({reloadTasks, showMessage}){
                 .updateTask(form, modal.id)
                 .then(()=>reloadTasks());
             showMessage('task was updated')
-        }
+        }}
+        closeModal();
         setData({'username': '', 'email': '', 'text': '', 'status': ''})
     };
 

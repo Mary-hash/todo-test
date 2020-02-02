@@ -58,6 +58,10 @@ export default function TaskPage() {
     useEffect(() => reloadTasks(), [filter, direction, pageNumber]);
     useEffect(() => getPages(), [count]);
 
+    window.addEventListener('storage', function(event) {
+        setLogin(localStorage.getItem('token'))
+    });
+
     const changeDirection=()=>{
         direction==='asc'? setDirection('desc'):setDirection('asc');
         setButtonText(!buttonText)
